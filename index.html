@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Luyanda Mazibuko — Software Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0d0d0d;
+      --surface:   #141414;
+      --border:    #222222;
+      --text:      #e8e8e8;
+      --muted:     #888888;
+      --accent:    #4ade80;
+      --accent-dim:#1a3d28;
+      --heading:   #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 6vw;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 17px;
+      color: var(--heading); text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+    .nav-logo span { color: var(--accent); }
+    nav ul { list-style: none; display: flex; gap: 32px; }
+    nav ul a {
+      color: var(--muted); text-decoration: none;
+      font-size: 13px; font-weight: 500; letter-spacing: 0.4px;
+      text-transform: uppercase; transition: color 0.2s;
+    }
+    nav ul a:hover { color: var(--text); }
+
+    /* ── SECTIONS ── */
+    section { padding: 100px 6vw; max-width: 1000px; margin: 0 auto; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding-top: 120px;
+      max-width: 1000px; margin: 0 auto;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 12px; font-weight: 500; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block; width: 28px; height: 1px;
+      background: var(--accent); margin-right: 10px;
+      vertical-align: middle;
+    }
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(38px, 7vw, 72px);
+      font-weight: 700; line-height: 1.05;
+      color: var(--heading); letter-spacing: -1.5px;
+      margin-bottom: 24px;
+    }
+    h1 .dim { color: var(--muted); }
+    .hero-sub {
+      font-size: 16px; color: var(--muted);
+      max-width: 480px; margin-bottom: 40px; line-height: 1.8;
+    }
+    .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 12px 24px;
+      border-radius: 6px; font-size: 13px; font-weight: 600;
+      text-decoration: none; letter-spacing: 0.3px;
+      transition: all 0.2s; cursor: pointer; border: none;
+    }
+    .btn-primary {
+      background: var(--accent); color: #0d0d0d;
+    }
+    .btn-primary:hover { background: #6ef09a; }
+    .btn-outline {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--muted); }
+
+    /* ── ABOUT ── */
+    #about p { color: var(--muted); max-width: 620px; font-size: 15px; line-height: 1.9; }
+    #about p + p { margin-top: 16px; }
+
+    /* ── SECTION HEADINGS ── */
+    .section-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 12px;
+    }
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 700; color: var(--heading);
+      letter-spacing: -0.8px; margin-bottom: 40px;
+    }
+
+    /* ── STACK ── */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 10px;
+    }
+    .stack-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 13px; font-weight: 500; color: var(--text);
+    }
+    .stack-item span {
+      display: block; font-size: 10px;
+      color: var(--muted); margin-top: 2px; font-weight: 400;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      display: flex; flex-direction: column;
+      transition: border-color 0.2s;
+    }
+    .project-card:hover { border-color: #333; }
+    .project-tag {
+      font-size: 10px; font-weight: 600; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .project-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 17px; font-weight: 600; color: var(--heading);
+      margin-bottom: 10px; letter-spacing: -0.3px;
+    }
+    .project-card p {
+      font-size: 13px; color: var(--muted);
+      line-height: 1.7; flex: 1; margin-bottom: 20px;
+    }
+    .project-tech {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px;
+    }
+    .tech-badge {
+      font-size: 10px; font-weight: 500;
+      background: var(--accent-dim); color: var(--accent);
+      padding: 3px 8px; border-radius: 4px; letter-spacing: 0.3px;
+    }
+    .project-links { display: flex; gap: 12px; }
+    .project-links a {
+      font-size: 12px; font-weight: 600; color: var(--muted);
+      text-decoration: none; letter-spacing: 0.3px;
+      transition: color 0.2s;
+    }
+    .project-links a:hover { color: var(--text); }
+    .project-links a.primary { color: var(--accent); }
+    .project-links a.primary:hover { color: #6ef09a; }
+
+    /* ── CONTACT ── */
+    #contact { text-align: center; }
+    #contact p { color: var(--muted); max-width: 420px; margin: 0 auto 32px; }
+    .contact-links {
+      display: flex; justify-content: center;
+      gap: 20px; flex-wrap: wrap; margin-top: 32px;
+    }
+    .contact-links a {
+      font-size: 13px; font-weight: 500; color: var(--muted);
+      text-decoration: none; transition: color 0.2s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .contact-links a:hover { color: var(--text); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none; border-top: 1px solid var(--border);
+      max-width: 1000px; margin: 0 auto;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 32px 6vw;
+      font-size: 12px; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      nav ul { display: none; }
+      section { padding: 80px 5vw; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">LM<span>.</span></a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#stack">Stack</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="padding-left:6vw; padding-right:6vw;">
+  <span class="hero-eyebrow">Available for opportunities</span>
+  <h1>Luyanda<br/><span class="dim">Mazibuko.</span></h1>
+  <p class="hero-sub">
+    Software developer from South Africa. I build mobile and web applications — clean, functional, and shipped.
+  </p>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="mailto:lbmazibuko@gmail.com">Get in touch</a>
+    <a class="btn btn-outline" href="#projects">See my work</a>
+    <a class="btn btn-outline" href="https://github.com/LuyandaMazibuko28" target="_blank">GitHub</a>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label">About</p>
+  <h2>Who I am</h2>
+  <p>
+    I'm a recent ICT Applications Development graduate from Durban University of Technology (2025), based in South Africa. I enjoy building things that solve real problems — from AI-powered mobile apps to web-based management systems.
+  </p>
+  <p>
+    I'm currently open to software development internships, graduate programmes, and learnerships across South Africa. I work well independently and in teams, and I'm comfortable across the full stack.
+  </p>
+</section>
+
+<hr class="divider"/>
+
+<!-- STACK -->
+<section id="stack">
+  <p class="section-label">Technologies</p>
+  <h2>What I work with</h2>
+  <div class="stack-grid">
+    <div class="stack-item">Python <span>Backend</span></div>
+    <div class="stack-item">C# <span>Backend</span></div>
+    <div class="stack-item">JavaScript <span>Frontend</span></div>
+    <div class="stack-item">React Native <span>Mobile</span></div>
+    <div class="stack-item">Flask <span>Framework</span></div>
+    <div class="stack-item">.NET Framework <span>Framework</span></div>
+    <div class="stack-item">Firebase <span>Backend/Cloud</span></div>
+    <div class="stack-item">MySQL <span>Database</span></div>
+    <div class="stack-item">SQLite <span>Database</span></div>
+    <div class="stack-item">MS SQL Server <span>Database</span></div>
+    <div class="stack-item">Azure <span>Cloud</span></div>
+    <div class="stack-item">Git / GitHub <span>Version Control</span></div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">Work</p>
+  <h2>Projects</h2>
+  <div class="projects-grid">
+
+    <!-- LinguaLearn -->
+    <div class="project-card">
+      <p class="project-tag">Solo · Mobile App</p>
+      <h3>LinguaLearn</h3>
+      <p>AI-powered language learning mobile app with lesson generation, quizzes, speech practice, vocabulary flashcards, and progress tracking.</p>
+      <div class="project-tech">
+        <span class="tech-badge">React Native</span>
+        <span class="tech-badge">Firebase</span>
+        <span class="tech-badge">Groq AI</span>
+        <span class="tech-badge">Expo</span>
+      </div>
+      <div class="project-links">
+        <a class="primary" href="https://github.com/LuyandaMazibuko28/LinguaLearn" target="_blank">View on GitHub →</a>
+      </div>
+    </div>
+
+    <!-- Campus Project Management -->
+    <div class="project-card">
+      <p class="project-tag">Team · Web App</p>
+      <h3>Campus Project Management System</h3>
+      <p>A full-stack web platform for managing campus projects with user authentication, project submission, OCR document processing, and AI-based evaluation.</p>
+      <div class="project-tech">
+        <span class="tech-badge">Flask</span>
+        <span class="tech-badge">SQLAlchemy</span>
+        <span class="tech-badge">Python</span>
+        <span class="tech-badge">Tesseract OCR</span>
+      </div>
+      <div class="project-links">
+        <a class="primary" href="https://github.com/KhayehG/campus-projects-solution-main" target="_blank">View on GitHub →</a>
+      </div>
+    </div>
+
+    <!-- LinguaFlow -->
+    <div class="project-card">
+      <p class="project-tag">Team · Mobile App</p>
+      <h3>LinguaFlow</h3>
+      <p>A Flutter-based language learning app featuring an AI chatbot, ASL sign detection using MediaPipe, spaced repetition flashcards, and speech recognition scoring.</p>
+      <div class="project-tech">
+        <span class="tech-badge">Flutter</span>
+        <span class="tech-badge">Dart</span>
+        <span class="tech-badge">Firebase</span>
+        <span class="tech-badge">Groq AI</span>
+        <span class="tech-badge">MediaPipe</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/KhayehG/StudioProjects" target="_blank">View on GitHub →</a>
+      </div>
+    </div>
+
+    <!-- BizCore ZA -->
+    <div class="project-card">
+      <p class="project-tag">Solo · In Progress</p>
+      <h3>BizCore ZA</h3>
+      <p>A comprehensive SME operations platform for South Africa's underdigitised small business sector. Covers inventory, invoicing, analytics, and AI integration.</p>
+      <div class="project-tech">
+        <span class="tech-badge">ASP.NET Core</span>
+        <span class="tech-badge">React</span>
+        <span class="tech-badge">Supabase</span>
+        <span class="tech-badge">Groq AI</span>
+      </div>
+      <div class="project-links">
+        <span style="font-size:12px; color:var(--muted);">Coming soon</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Contact</p>
+  <h2>Let's talk</h2>
+  <p>
+    I'm actively looking for software development internships and graduate programmes in South Africa. If you have an opportunity or just want to connect, reach out.
+  </p>
+  <a class="btn btn-primary" href="mailto:lbmazibuko@gmail.com">lbmazibuko@gmail.com</a>
+  <div class="contact-links">
+    <a href="https://github.com/LuyandaMazibuko28" target="_blank">
+      GitHub
+    </a>
+    <a href="https://linkedin.com/in/lbmazibuko" target="_blank">
+      LinkedIn
+    </a>
+  </div>
+</section>
+
+<footer>
+  Built by Luyanda Mazibuko · 2026
+</footer>
+
+</body>
+</html>
